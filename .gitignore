@@ -1,0 +1,42 @@
+# Agent tooling state (SDD / skill registry)
+.atl/
+
+# Secrets & credentials
+.env
+.env.*
+*.key
+*.pem
+service-account*.json
+credentials*.json
+gcp-key*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+.next/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Terraform / infra state
+*.tfstate
+*.tfstate.*
+.terraform/
