@@ -87,7 +87,6 @@ export function normalizeStatus(raw) {
       action: pumpOn ? 'Encender Bomba' : 'Apagar Bomba',
       reason: reasoning,
       pumpOn,
-      dieselSaved: !pumpOn,
     },
   };
 }

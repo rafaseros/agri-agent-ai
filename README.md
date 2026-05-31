@@ -1,53 +1,60 @@
-# 🌾 AgriAgent AI - Hackathon Build With AI 2026
+# 🌾 AgriAgent AI — Hackatón Build With AI 2026
 
-**Equipo:** [Nombre de su equipo]
-**Categoría:** Agro / Energía[cite: 2]
-**Ubicación:** Santa Cruz de la Sierra, Bolivia[cite: 2]
+**Riego predictivo con IA para aprovechar mejor el agua y maximizar la producción.**
 
-## 👥 Integrantes del Equipo
-1. José Rafael Gallegos Rojas (Rol: Estrategia, Negocios y Pitch)
-2. [Nombre del Integrante 2] (Rol: IA y Arquitectura Cloud)
-3. [Nombre del Integrante 3] (Rol: Frontend y Datos)
+- **Categoría:** Agro
+- **Ubicación:** Santa Cruz de la Sierra, Bolivia
+- **Equipo:** José Rafael Gallegos Rojas (Estrategia/Negocio/Pitch) · *[Integrante 2]* · *[Integrante 3]*
+- 🌐 **Demo en vivo:** https://agriagent-hackathon-2026-6ded8.web.app
 
 ---
 
-## 📌 Explicación General del Proyecto
-**El Problema:** En Santa Cruz de la Sierra, el costo no subvencionado del diésel (aprox. 11 Bs/L) ha vuelto insostenible el riego agrícola tradicional. Los productores medianos pierden rentabilidad al encender bombas de agua de forma ineficiente, basándose en la intuición y desperdiciando combustible[cite: 2].
+## El problema — riego a ciegas
 
-**La Solución:** AgriAgent AI es un **Agente Agrícola Autónomo** que optimiza el Nexo Agua-Energía. No es un sistema de alertas pasivo; es una Inteligencia Artificial que cruza datos de humedad del suelo con pronósticos climáticos (APIs) e imágenes satelitales para tomar la decisión autónoma de encender o apagar las bombas de riego, maximizando el ahorro de diésel[cite: 2].
+El productor riega por intuición. Eso genera dos errores caros:
 
----
+- **Déficit hídrico:** falta de agua en floración → reduce el rendimiento **hasta un 40%**.
+- **Sobre-riego:** agua de más → ahoga raíces, lava nutrientes y **agota los acuíferos**.
 
-## 🏗️ Arquitectura Tecnológica
-El sistema está diseñado bajo una arquitectura de bajo costo (Serverless) y baja conectividad para el campo boliviano:
+El problema no es la falta de agua: es la **falta de precisión** sobre cuándo y cuánto regar.
 
-1. **Edge Sync (Campo):** Sensores capacitivos de bajo costo controlados por microcontroladores ESP32 recogen datos de humedad.
-2. **Ingesta Cloud:** Google Cloud Functions recibe los datos asíncronos y consulta las APIs de clima (Open-Meteo) y Earth Engine.
-3. **Cerebro AI (Vertex AI):** Vertex AI Agent Builder actúa como el motor de razonamiento. Evalúa los datos contra manuales agrícolas (Vector Search) y decide la acción hídrica.
-4. **Capa de Acción:** El sistema actualiza un dashboard en Looker Studio y envía el comando de apagado/encendido al hardware.
+## La solución — AgriAgent
 
----
+Un **agente agrícola autónomo** que cruza la humedad del suelo (sensores IoT) con el pronóstico
+del clima y razona, con **IA generativa (Gemini)**, el estado de cada cultivo para decidir el
+**momento exacto de regar**. Optimiza cada litro de agua, protege el rendimiento y registra cada
+decisión. No avisa: **decide y actúa**, con comportamiento *fail-safe* (ante pérdida de señal,
+mantiene el riego cerrado por seguridad).
 
-## 💻 Tecnologías Utilizadas
-* **Google Cloud Platform (Free Tier):** Cloud Functions, BigQuery (Almacenamiento y ML).
-* **Inteligencia Artificial:** Vertex AI Agent Builder.
-* **APIs de Datos:** Google Earth Engine (Imágenes satelitales), Open-Meteo API.
-* **Frontend / Dashboard:** Vite + React (para la demo) y Looker Studio.
-* **Hardware (Simulado/Prototipo):** ESP32, Sensores de Humedad Capacitivos v1.2.
+## Arquitectura (100% Google Cloud)
 
----
+```
+Sensores IoT → Firebase Hosting (app) → Cloud Run (agente)
+   → Vertex AI · Gemini 2.5 Flash (decide REGAR / NO REGAR) → riego
+   → BigQuery (historial)            ↑ contexto: Open-Meteo (pronóstico)
+```
 
-## 🖼️ Imágenes Referenciales
-*(Nota: Reemplazar los enlaces con las capturas reales del dashboard y arquitectura antes del domingo a las 10:00 AM)*[cite: 2]
+| Capa | Servicio Google |
+| --- | --- |
+| Frontend móvil-first | Firebase Hosting |
+| Backend del agente | Cloud Run |
+| Cerebro de decisión | Vertex AI · Gemini 2.5 Flash |
+| Historial / analítica | BigQuery |
 
-![Diagrama de Arquitectura](enlace-a-su-imagen-de-arquitectura.png)
-![Dashboard Looker Studio](enlace-a-su-captura-del-dashboard.png)
+> **Transparencia (PoC):** la capa NDVI es simulada con cartografía satelital estándar; la
+> integración con Google Earth Engine está en validación. El clima sí es real (Open-Meteo).
 
----
+## Estructura del repo
 
-## 🚀 Instrucciones de Ejecución (Demo Local)
-Para correr el prototipo de la interfaz del agente en un entorno local:
+```
+agriagent-mvp/
+  frontend/    # App React + Vite (desplegada en Firebase Hosting)
+  simulator/   # Backend Node local (fallback para desarrollo / demo offline)
+docs/          # Documento de negocio + revisión del pitch
+```
 
-1. Clonar el repositorio:
-```bash
-   git clone [https://github.com/](https://github.com/)[su-usuario]/agriagent-ai.git
+## Documentación
+
+- [`docs/documento-negocio.md`](docs/documento-negocio.md) — plan de negocio y backbone del pitch.
+- [`docs/pendientes-presentacion.md`](docs/pendientes-presentacion.md) — estado y pendientes.
+- [`agriagent-mvp/README.md`](agriagent-mvp/README.md) — cómo correr el MVP localmente.

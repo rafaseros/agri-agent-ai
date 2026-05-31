@@ -5,7 +5,7 @@
 //   1. The (simulated) ESP32 soil sensor          -> sensorData.js
 //   2. Live weather for Santa Cruz (Open-Meteo)    -> agentLogic.js
 //   3. The agent's irrigation decision (Vertex AI) -> agentLogic.js
-// Plus a frozen 7-day diesel-savings series for the chart.
+// Plus a frozen 7-day water-savings series for the chart.
 // ---------------------------------------------------------------------------
 
 import express from 'express';
@@ -13,7 +13,7 @@ import cors from 'cors';
 
 import { readSensor } from './sensorData.js';
 import { fetchWeather, decideIrrigationAI, describeWeatherCode } from './agentLogic.js';
-import { dieselHistory, totalDieselSaved } from './dieselHistory.js';
+import { waterHistory, totalWaterSaved } from './waterHistory.js';
 
 const PORT = 3001;
 
@@ -56,17 +56,17 @@ app.get('/api/status', async (req, res) => {
         condition: describeWeatherCode(weather.weathercode),
       },
       // `decision`/`reasoning` are the raw Vertex AI output. `action`/`reason`/
-      // `pumpOn`/`dieselSaved` keep the Phase 2 dashboard working unchanged.
+      // `pumpOn`/`waterSaved` are convenience fields for the dashboard.
       decision: {
         decision: ai.decision,
         reasoning: ai.reasoning,
         action: pumpOn ? 'Encender Bomba' : 'Apagar Bomba',
         reason: ai.reasoning,
         pumpOn,
-        dieselSaved: !pumpOn,
+        waterSaved: !pumpOn,
       },
-      dieselHistory,
-      totalDieselSaved,
+      waterHistory,
+      totalWaterSaved,
     });
   } catch (err) {
     // Open-Meteo (not Vertex) failure — surface a clean 502 so the dashboard

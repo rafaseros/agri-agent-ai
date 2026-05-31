@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------
 // AgriAgent — irrigation decision engine (Edge Sync brain).
 //
-// The decision is now made by Gemini 1.5 Flash on Vertex AI: it crosses the
-// live Open-Meteo weather for Santa Cruz with the ESP32 soil-moisture reading
-// and returns whether to run the diesel pump. The previous rule-based policy
+// The decision is made by Gemini 2.5 Flash on Vertex AI: it crosses the live
+// Open-Meteo weather for Santa Cruz with the ESP32 soil-moisture reading and
+// returns whether to run the irrigation pump. The previous rule-based policy
 // (decideIrrigation, below) is kept as a documented, testable local fallback.
 // ---------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ const generativeModel = vertexAI.getGenerativeModel({
 });
 
 // Safe contingency: if Google Cloud fails, the pump stays OFF (fail-safe — we
-// never burn diesel on a guess) and the dashboard still renders.
+// never irrigate on a guess) and the dashboard still renders.
 const FALLBACK = {
   decision: 'OFF',
   reasoning: 'Error de conexión, bomba apagada por seguridad',
@@ -116,14 +116,14 @@ export async function fetchWeather() {
 export async function decideIrrigationAI({ soilMoisture, weather }) {
   const clima = `${weather.temperature}°C, ${describeWeatherCode(weather.weathercode)}, viento ${weather.windspeed} km/h`;
 
-  // Exact prompt per spec, with {HUMEDAD} and {CLIMA_OPEN_METEO} filled in.
+  // Water-optimization prompt: irrigate to protect yield without wasting water.
   const prompt =
     `Eres un Agente Agrícola Autónomo experto en el Norte Integrado de Santa Cruz, Bolivia. ` +
-    `El litro de diésel cuesta 11 Bs. Tu objetivo es minimizar el uso de la bomba de agua para ahorrar ` +
-    `combustible, asegurando que el cultivo no muera. Datos actuales -> Humedad del suelo: ${soilMoisture}%. ` +
+    `Tu objetivo es optimizar el uso del agua y maximizar el rendimiento del cultivo, regando solo ` +
+    `cuando es necesario y evitando el desperdicio. Datos actuales -> Humedad del suelo: ${soilMoisture}%. ` +
     `Clima actual: ${clima}. ¿Debemos encender la bomba ahora? Responde estrictamente con un JSON válido ` +
     `sin formato markdown, con las claves 'decision' ("ON" o "OFF") y 'reasoning' (Explicación de máximo ` +
-    `20 palabras justificando el ahorro de diésel).`;
+    `20 palabras justificando el uso eficiente del agua).`;
 
   try {
     const result = await generativeModel.generateContent(prompt);
