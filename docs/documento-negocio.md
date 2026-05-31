@@ -176,3 +176,17 @@ La capa de monitoreo espacial (NDVI) es **simulada** con cartografía satelital 
 - **Actividades clave:** mejora de los modelos de IA, gestión de la red de sensores, análisis de datos, soporte.
 - **Socios clave:** proveedores de electrónica, Google Cloud for Startups, cooperativas, centros de investigación agronómica.
 - **Costos:** cómputo cloud (Vertex AI, BigQuery), I+D, manufactura de sensores, marketing, logística de instalación.
+
+## D. Lean Canvas
+
+| # | Bloque | Contenido |
+| --- | --- | --- |
+| 1 | **Problema** | Riego por intuición → déficit hídrico (−40% rendimiento) y sobre-riego (desperdicio, raíces ahogadas, acuíferos agotados). Alternativas: temporizadores ciegos, IoT pasivo, intuición. |
+| 2 | **Segmentos** | Medianos/grandes productores del Norte Integrado (soya, maíz, sorgo, trigo) + administradores de hacienda. Early adopters: haciendas tecnificadas. |
+| 3 | **Propuesta de valor única** | Riego predictivo con IA: cada gota en el momento exacto para maximizar rendimiento y cuidar el agua. |
+| 4 | **Solución** | Vertex AI · Gemini 2.5 Flash decide REGAR/NO REGAR · multicultivo · fail-safe ante pérdida de señal. |
+| 5 | **Canales** | B2B directo, pilotos en campo, alianzas (ANAPO), ferias AgTech. |
+| 6 | **Ingresos** | Suscripción anual SaaS por hectárea (~$15–25/ha) + fee de instalación / nodos IoT. |
+| 7 | **Costos** | Cloud (Vertex AI, BigQuery, costo marginal ~0), hardware IoT, I+D, soporte. |
+| 8 | **Métricas clave** | Hectáreas monitoreadas · litros de agua/ha ahorrados · % decisiones IA vs manual · Δ rendimiento (t/ha) · uptime del fail-safe. |
+| 9 | **Ventaja injusta** | Data flywheel (modelos por microclima del Norte Integrado) + lock de distribución (cooperativas) + switching cost (histórico en BigQuery). |

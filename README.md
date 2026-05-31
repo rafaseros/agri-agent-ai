@@ -12,6 +12,16 @@
 
 ---
 
+## 📦 Entregables (Hackatón Build With AI 2026 · mención Agro)
+
+- ✅ **MVP funcional (en vivo):** https://agriagent-hackathon-2026-6ded8.web.app
+- ✅ **Código del MVP:** [`agriagent-mvp/`](agriagent-mvp/) — frontend (React) · backend (Cloud Function) · simulador
+- 📄 **Documento técnico:** [`docs/documento-negocio.md`](docs/documento-negocio.md) (problema, solución, arquitectura, IA, FODA, PESTEL, Lean Canvas, financiero, impacto) → exportado a PDF en `docs/`
+- 📄 **Diapositivas:** pitch interactivo (pestaña *Pitch* en la app) → PDF en `docs/`
+- 🎬 **Video demo (YouTube):** _pendiente de publicar_
+
+---
+
 ## El problema — riego a ciegas
 
 El productor riega por intuición. Eso genera dos errores caros:
