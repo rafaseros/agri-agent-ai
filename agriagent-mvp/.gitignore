@@ -18,3 +18,8 @@ gcp-key.json
 *-key.json
 service-account*.json
 credentials*.json
+
+# Firebase (deploy cache / logs)
+.firebase/
+firebase-debug.log
+.firebase-debug.log
