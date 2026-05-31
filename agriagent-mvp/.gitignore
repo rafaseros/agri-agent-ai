@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env & OS
+.env
+.env.*
+.DS_Store
+
+# Google Cloud credentials — NEVER commit these
+gcp-key.json
+*-key.json
+service-account*.json
+credentials*.json

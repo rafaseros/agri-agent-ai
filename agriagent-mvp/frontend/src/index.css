@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+/* Google Cloud accent palette — exposed as Tailwind utilities (text-gblue …). */
+@theme {
+  --color-gblue: #4285f4;
+  --color-ggreen: #34a853;
+  --color-gyellow: #fbbc05;
+  --color-gred: #ea4335;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #09090b; /* zinc-950 — dark mode base */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
