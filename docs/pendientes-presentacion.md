@@ -58,8 +58,11 @@ Mención **AGRO** → los lineamientos listan textualmente *"optimización de ri
 4. **Capturas** para el README (dashboard, pitch, mapa satelital).
 5. Validar el **precio/ha** y citar **1 fuente** (FAO) para −40%/−30%.
 6. **Calentar Cloud Run** y ensayar el demo en la URL pública antes de presentar.
+7. ⚠️ **Re-deployar la Cloud Function `agriagent-cerebro`** tras la limpieza del prompt (combustible → agua), para que el demo en vivo NO muestre "diésel" en el razonamiento de la IA.
+8. ⚠️ Agregar la columna **`razonamiento` (STRING)** a la tabla BigQuery `historial_riego` (hoy el código la inserta pero la tabla no la tiene → la inserción falla en silencio).
 
 ## ✅ Limpieza ya hecha
 - Enfoque de combustible/energía removido por completo (docs, ambos README, simulador, frontend).
 - Lean Canvas creado; documento de negocio reenfocado a agua/producción; problema **conciso**.
-- Inconsistencias corregidas: 4 cultivos (Soya/Maíz/Sorgo/Trigo), Cloud Run, transparencia NDVI.
+- Inconsistencias corregidas: 4 cultivos (Soya/Maíz/Sorgo/Trigo), transparencia NDVI.
+- **Backend en el repo:** Cloud Function `agriagent-cerebro` (Vertex AI + BigQuery) en `agriagent-mvp/backend/` + esquema BigQuery. Confirmado: es una **Cloud Function 2ª gen sobre Cloud Run** (resuelve la duda Cloud Run vs Cloud Functions).

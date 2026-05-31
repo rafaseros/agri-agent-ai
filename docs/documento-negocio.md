@@ -65,7 +65,7 @@ Sensores IoT (campo) → App · Firebase Hosting → Cloud Run (backend del agen
 | Capa | Servicio Google | Función |
 | --- | --- | --- |
 | Frontend (Hub) | **Firebase Hosting** | App móvil-first, transmite el estado del lote |
-| Backend / ingesta | **Cloud Run** | Recibe los datos y orquesta la decisión |
+| Backend / ingesta | **Cloud Functions (2ª gen) · Cloud Run** | Recibe los datos y orquesta la decisión |
 | Cerebro | **Vertex AI · Gemini 2.5 Flash** | Evalúa estrés del cultivo + clima → decide |
 | Historial | **BigQuery** | Registro auditable y analítica |
 | Contexto climático | Open-Meteo (3rd party) | Pronóstico para anticipar lluvia |

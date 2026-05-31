@@ -1,0 +1,11 @@
+[
+  { "name": "fecha_hora", "type": "TIMESTAMP", "mode": "NULLABLE" },
+  { "name": "sensor_id", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "cultivo", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "hectareas", "type": "INTEGER", "mode": "NULLABLE" },
+  { "name": "humedad_superficie", "type": "INTEGER", "mode": "NULLABLE" },
+  { "name": "humedad_profunda", "type": "INTEGER", "mode": "NULLABLE" },
+  { "name": "estado_red", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "decision_ia", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "razonamiento", "type": "STRING", "mode": "NULLABLE" }
+]

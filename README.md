@@ -40,9 +40,9 @@ Sensores IoT → Firebase Hosting (app) → Cloud Run (agente)
 | Capa | Servicio Google |
 | --- | --- |
 | Frontend móvil-first | Firebase Hosting |
-| Backend del agente | Cloud Run |
+| Backend del agente | Cloud Functions (2ª gen) en Cloud Run |
 | Cerebro de decisión | Vertex AI · Gemini 2.5 Flash |
-| Historial / analítica | BigQuery |
+| Historial / analítica | BigQuery (registra cada decisión) |
 
 > **Transparencia (PoC):** la capa NDVI es simulada con cartografía satelital estándar; la
 > integración con Google Earth Engine está en validación. El clima sí es real (Open-Meteo).
@@ -52,8 +52,9 @@ Sensores IoT → Firebase Hosting (app) → Cloud Run (agente)
 ```
 agriagent-mvp/
   frontend/    # App React + Vite (desplegada en Firebase Hosting)
+  backend/     # Cloud Function `agriagent-cerebro` (Vertex AI + BigQuery)
   simulator/   # Backend Node local (fallback para desarrollo / demo offline)
-docs/          # Documento de negocio + revisión del pitch
+docs/          # Negocio, Lean Canvas, lineamientos, guion del video
 ```
 
 ## Documentación
