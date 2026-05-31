@@ -84,6 +84,26 @@ Somos el equipo **Full_Stack**. Gracias.
   Protocolo **fail-safe**: ante pérdida de señal, el agente **mantiene la bomba apagada** para no
   regar a ciegas. La seguridad del recurso manda.
 
+- **¿Cómo se comunican los sensores y cómo se acciona la bomba?**
+  Encuadre honesto: **en el PoC están simulados**; lo construido y en vivo es el agente y el
+  **contrato de datos** (el JSON que manda la app hoy es el mismo que mandaría el sensor real).
+  - **Sensor → nube (subida):** cada sensor es un **ESP32** (~$5) con **panel solar + batería**
+    y un **sensor capacitivo** que mide humedad a dos profundidades (10cm / 40cm). Sube los datos
+    por **LoRaWAN** (un gateway en la finca, ideal para campos grandes) o **celular (NB-IoT/LTE-M)**.
+    Protocolo: hoy **HTTPS POST** al Cloud Function; a escala, **MQTT**. Lee cada **15–30 min**
+    porque el suelo cambia lento → batería de meses.
+  - **Nube → bomba (bajada):** la decisión llega a un controlador en la bomba; un **relé** activa
+    un **contactor** que enciende el **motor** (el relé nunca maneja la potencia directo). El
+    controlador **consulta/suscribe** los comandos (atraviesa NAT sin abrir puertos).
+  - **Fail-safe en el borde:** el controlador tiene un **watchdog**; si no recibe comando ni
+    latido en X minutos, **apaga la bomba solo**. No depende de que la nube esté online.
+  - **Desarme de objeción:** *"no necesita tiempo real — el suelo cambia en horas y el riego dura
+    minutos; por eso las comunicaciones son baratas y la batería dura meses."*
+  - **Frase corta:** "ESP32 con panel solar mide humedad y la sube por LoRa o celular; la nube
+    decide con Gemini y devuelve el comando a un controlador que acciona un contactor; el
+    fail-safe está en el propio dispositivo por watchdog. Hoy está simulado por la app, pero el
+    contrato de datos ya está en producción."
+
 - **¿Está validado en campo?**
   Hoy es un **PoC funcional y desplegado en vivo**. El siguiente paso es un **piloto de campo** con
   un productor del Norte Integrado para medir ahorro de agua y delta de rendimiento reales.
