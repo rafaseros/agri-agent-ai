@@ -17,7 +17,7 @@ const PALETTE = [
   '#06b6d4', '#f97316', '#ec4899', '#84cc16', '#14b8a6',
 ];
 
-// BigQuery TIMESTAMP serializes as { value: "..." } via the client; normalize.
+// BigQuery TIMESTAMP serializes as { value: "..." }; normalize to a string.
 const tsValue = (v) => (v && typeof v === 'object' && 'value' in v ? v.value : v);
 const fmtTime = (v) => {
   try {
@@ -36,6 +36,7 @@ export default function AnalyticsDashboard({ history, sensores, pumpOnCount }) {
   const [rows, setRows] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selected, setSelected] = useState(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -54,22 +55,34 @@ export default function AnalyticsDashboard({ history, sensores, pumpOnCount }) {
     load();
   }, [load]);
 
-  // BigQuery rows → time series with BOTH humidities (ascending by time).
-  const bqData = (rows ?? [])
-    .slice()
-    .reverse()
-    .map((r) => ({
-      t: fmtTime(r.fecha_hora),
-      superficie: num(r.humedad_superficie),
-      profunda: num(r.humedad_profunda),
-    }));
-  const hasBQ = bqData.length > 0;
+  // Sensors present in the history, ordered by number of readings (most first).
+  const counts = {};
+  (rows ?? []).forEach((r) => {
+    counts[r.sensor_id] = (counts[r.sensor_id] || 0) + 1;
+  });
+  const sensorIds = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
 
-  // KPIs from BigQuery (fallback to session when BQ is empty).
+  // Default the selector to the sensor with the most data once rows arrive.
+  useEffect(() => {
+    if (sensorIds.length && (!selected || !sensorIds.includes(selected))) {
+      setSelected(sensorIds[0]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rows]);
+
+  const hasBQ = sensorIds.length > 0;
+
+  // Time series for the SELECTED sensor: both humidities, ascending by time.
+  const serie = (rows ?? [])
+    .filter((r) => r.sensor_id === selected)
+    .map((r) => ({ ts: tsValue(r.fecha_hora), superficie: num(r.humedad_superficie), profunda: num(r.humedad_profunda) }))
+    .sort((a, b) => new Date(a.ts) - new Date(b.ts))
+    .map((d) => ({ t: fmtTime(d.ts), superficie: d.superficie, profunda: d.profunda }));
+
+  // KPIs (global over the whole table; fallback to session when BQ is empty).
   const riegos = hasBQ
     ? (rows ?? []).filter((r) => String(r.decision_ia).toUpperCase() === 'ON').length
     : pumpOnCount;
-  const registros = (rows ?? []).length;
   const supProm = hasBQ
     ? avg((rows ?? []).map((r) => Number(r.humedad_superficie)).filter(Number.isFinite))
     : avg(sensores.map((s) => s.humedad_superficie).filter(Number.isFinite));
@@ -108,16 +121,37 @@ export default function AnalyticsDashboard({ history, sensores, pumpOnCount }) {
       {/* KPIs */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Kpi icon={Droplets} label="Riegos activados (IA)" value={riegos} color="text-ggreen" />
-        <Kpi icon={Cpu} label="Registros en BigQuery" value={registros} color="text-gblue" />
+        <Kpi icon={Cpu} label="Registros en BigQuery" value={(rows ?? []).length} color="text-gblue" />
         <Kpi icon={Waves} label="Humedad superficie prom." value={`${supProm}%`} color="text-sky-400" />
         <Kpi icon={Layers} label="Humedad profundidad prom." value={`${profProm}%`} color="text-blue-400" />
       </div>
 
       {/* Chart */}
       <div className="mt-5 rounded-2xl border border-white/10 bg-slate-900/60 p-5 shadow-lg">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
-          Humedad del suelo — superficie vs. profundidad
-        </h3>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
+            Humedad por sensor — superficie vs. profundidad
+          </h3>
+          {/* Sensor selector */}
+          {hasBQ && (
+            <div className="flex flex-wrap gap-1.5">
+              {sensorIds.map((id) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setSelected(id)}
+                  className={`rounded-lg px-2.5 py-1 font-mono text-xs font-bold ring-1 transition ${
+                    selected === id
+                      ? 'bg-gblue/15 text-gblue ring-gblue/40'
+                      : 'bg-white/5 text-slate-400 ring-white/10 hover:text-white'
+                  }`}
+                >
+                  {id}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         {loading && !rows ? (
           <Centered>
@@ -127,22 +161,22 @@ export default function AnalyticsDashboard({ history, sensores, pumpOnCount }) {
         ) : hasBQ ? (
           <div className="mt-5 h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={bqData} margin={{ top: 8, right: 12, left: -8, bottom: 0 }}>
+              <LineChart data={serie} margin={{ top: 8, right: 12, left: -8, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
                 <XAxis dataKey="t" stroke="#71717a" tickLine={false} axisLine={false} minTickGap={48} />
                 <YAxis domain={[0, 100]} stroke="#71717a" tickLine={false} axisLine={false} unit="%" />
                 <Tooltip
                   contentStyle={{ background: '#18181b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', color: '#fff' }}
                   formatter={(v, name) => [`${v}%`, name]}
+                  labelFormatter={(t) => `${selected} · ${t}`}
                 />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Line type="monotone" dataKey="superficie" name="Superficie (10cm)" stroke="#38bdf8" strokeWidth={2} dot={false} isAnimationActive={false} connectNulls />
-                <Line type="monotone" dataKey="profunda" name="Profundidad (40cm)" stroke="#3b82f6" strokeWidth={2} dot={false} isAnimationActive={false} connectNulls />
+                <Line type="monotone" dataKey="superficie" name="Superficie (10cm)" stroke="#38bdf8" strokeWidth={2.5} dot={false} isAnimationActive={false} connectNulls />
+                <Line type="monotone" dataKey="profunda" name="Profundidad (40cm)" stroke="#3b82f6" strokeWidth={2.5} dot={false} isAnimationActive={false} connectNulls />
               </LineChart>
             </ResponsiveContainer>
           </div>
         ) : hasSession ? (
-          // Fallback: BigQuery vacío/inaccesible → mostrar la sesión local (no dejar la pestaña en blanco).
           <div className="mt-5 h-80 w-full">
             <p className="mb-2 text-xs text-gyellow">
               BigQuery sin datos todavía — mostrando la sesión local. Corré la simulación y tocá "Refrescar".

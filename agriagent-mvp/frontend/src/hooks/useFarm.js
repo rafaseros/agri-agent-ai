@@ -153,21 +153,30 @@ export function useFarm() {
       const s = sensoresRef.current.find((x) => x.id === base.id);
       if (!s) continue;
 
-      // Evolve humidity: rewet to 80% after a pump cycle, else dry 1–3%.
+      // Evolve humidity. Surface is volatile (dries 1–3%/tick, rewets to 80%).
+      // Deep soil changes slower: dries 0–2%/tick and rewets gradually (+2–5%).
       const surface =
         s.lastDecision === 'ON' ? REWET_TARGET : Math.max(0, s.humedad_superficie - rand(1, 3));
+      const deep =
+        s.lastDecision === 'ON'
+          ? Math.min(REWET_TARGET, s.humedad_profunda + rand(2, 5))
+          : Math.max(0, s.humedad_profunda - rand(0, 2));
       point[s.id] = surface;
 
       // Mark THIS sensor as the one being consulted (UI shows "Consultando IA…").
       setSensores((prev) =>
         prev.map((x) =>
-          x.id === s.id ? { ...x, humedad_superficie: surface, evaluating: true } : x,
+          x.id === s.id
+            ? { ...x, humedad_superficie: surface, humedad_profunda: deep, evaluating: true }
+            : x,
         ),
       );
 
       // Fetch this single sensor, then update its card immediately.
       try {
-        const r = await postStatus(sensorToBody({ ...s, humedad_superficie: surface }));
+        const r = await postStatus(
+          sensorToBody({ ...s, humedad_superficie: surface, humedad_profunda: deep }),
+        );
         if (r.decision.pumpOn) pumps += 1;
         setSensores((prev) =>
           prev.map((x) =>
