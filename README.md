@@ -21,7 +21,7 @@
 | 1 | 📄 **Documento técnico (PDF)** | [`entregables/documento-tecnico.pdf`](entregables/documento-tecnico.pdf) |
 | 2 | 💻 **Código del MVP funcional** | [`agriagent-mvp/`](agriagent-mvp/) — frontend · backend · simulador |
 | 3 | 📊 **Diapositivas (PDF)** | [`entregables/diapositivas.pdf`](entregables/diapositivas.pdf) |
-| 4 | 🎬 **Video demo (YouTube)** | https://youtu.be/Dctkk7KQ5Xc |
+| 4 | 🎬 **Video demo (YouTube)** | https://youtu.be/PhaMN7XT2Us |
 | ⭐ | 🌐 **MVP en vivo** | https://agriagent-hackathon-2026-6ded8.web.app |
 
 ---
