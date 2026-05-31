@@ -33,16 +33,21 @@ functions.http('helloHttp', async (req, res) => {
     // (El frontend no puede consultar BigQuery directo; la función corre la query.)
     if (req.method === 'GET' && req.query && req.query.modo === 'historial') {
         try {
-            const [rows] = await bigquery.query({
-                query: `SELECT fecha_hora, sensor_id, cultivo, humedad_superficie, humedad_profunda, estado_red, decision_ia
-                        FROM \`agriagent-hackathon-2026.agriagent_data.historial_riego\`
-                        ORDER BY fecha_hora DESC
-                        LIMIT 200`,
-            });
-            res.status(200).json({ historial: rows });
+            // getRows (tabledata.list) en vez de un query job: evita el permiso
+            // bigquery.jobs.create y problemas de location del dataset. Solo
+            // requiere lectura de tabla (que la SA ya tiene porque inserta).
+            const [rows] = await bigquery
+                .dataset('agriagent_data')
+                .table('historial_riego')
+                .getRows({ maxResults: 1000 });
+            const historial = rows
+                .map((r) => ({ ...r, fecha_hora: r.fecha_hora?.value ?? r.fecha_hora }))
+                .sort((a, b) => new Date(b.fecha_hora) - new Date(a.fecha_hora))
+                .slice(0, 200);
+            res.status(200).json({ historial });
         } catch (e) {
             console.error('Error BQ historial:', e.message);
-            res.status(200).json({ historial: [] });
+            res.status(200).json({ historial: [], error: e.message });
         }
         return;
     }
