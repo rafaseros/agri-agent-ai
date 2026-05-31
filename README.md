@@ -16,9 +16,9 @@
 
 - ✅ **MVP funcional (en vivo):** https://agriagent-hackathon-2026-6ded8.web.app
 - ✅ **Código del MVP:** [`agriagent-mvp/`](agriagent-mvp/) — frontend (React) · backend (Cloud Function) · simulador
-- 📄 **Documento técnico:** [`docs/documento-negocio.md`](docs/documento-negocio.md) (problema, solución, arquitectura, IA, FODA, PESTEL, Lean Canvas, financiero, impacto) → exportado a PDF en `docs/`
-- 📄 **Diapositivas:** pitch interactivo (pestaña *Pitch* en la app) → PDF en `docs/`
-- 🎬 **Video demo (YouTube):** _pendiente de publicar_
+- 📄 **Documento técnico (PDF):** [`docs/documento-tecnico.pdf`](docs/documento-tecnico.pdf) · fuente: [`docs/documento-negocio.md`](docs/documento-negocio.md)
+- 📄 **Diapositivas (PDF):** [`docs/diapositivas-agriagent.pdf`](docs/diapositivas-agriagent.pdf)
+- 🎬 **Video demo (YouTube):** https://youtu.be/Dctkk7KQ5Xc
 
 ---
 
