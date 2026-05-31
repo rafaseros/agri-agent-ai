@@ -40,3 +40,6 @@ Thumbs.db
 *.tfstate
 *.tfstate.*
 .terraform/
+
+# Exports temporales (Markdown PDF, etc.)
+*_tmp.html

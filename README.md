@@ -14,11 +14,15 @@
 
 ## 📦 Entregables (Hackatón Build With AI 2026 · mención Agro)
 
-- ✅ **MVP funcional (en vivo):** https://agriagent-hackathon-2026-6ded8.web.app
-- ✅ **Código del MVP:** [`agriagent-mvp/`](agriagent-mvp/) — frontend (React) · backend (Cloud Function) · simulador
-- 📄 **Documento técnico (PDF):** [`docs/documento-tecnico.pdf`](docs/documento-tecnico.pdf) · fuente: [`docs/documento-negocio.md`](docs/documento-negocio.md)
-- 📄 **Diapositivas (PDF):** [`docs/diapositivas-agriagent.pdf`](docs/diapositivas-agriagent.pdf)
-- 🎬 **Video demo (YouTube):** https://youtu.be/Dctkk7KQ5Xc
+> 📁 Los PDFs están en la carpeta **[`entregables/`](entregables/)**.
+
+| # | Entregable | Dónde |
+| --- | --- | --- |
+| 1 | 📄 **Documento técnico (PDF)** | [`entregables/documento-tecnico.pdf`](entregables/documento-tecnico.pdf) |
+| 2 | 💻 **Código del MVP funcional** | [`agriagent-mvp/`](agriagent-mvp/) — frontend · backend · simulador |
+| 3 | 📊 **Diapositivas (PDF)** | [`entregables/diapositivas.pdf`](entregables/diapositivas.pdf) |
+| 4 | 🎬 **Video demo (YouTube)** | https://youtu.be/Dctkk7KQ5Xc |
+| ⭐ | 🌐 **MVP en vivo** | https://agriagent-hackathon-2026-6ded8.web.app |
 
 ---
 
@@ -60,11 +64,13 @@ Sensores IoT → Firebase Hosting (app) → Cloud Run (agente)
 ## Estructura del repo
 
 ```
+entregables/   # 📦 Entregables del hackatón → documento-tecnico.pdf + diapositivas.pdf
 agriagent-mvp/
   frontend/    # App React + Vite (desplegada en Firebase Hosting)
   backend/     # Cloud Function `agriagent-cerebro` (Vertex AI + BigQuery)
   simulator/   # Backend Node local (fallback para desarrollo / demo offline)
-docs/          # Negocio, Lean Canvas, lineamientos, guion del video
+docs/          # Fuentes y material de trabajo (documento-negocio.md, Lean Canvas, guion)
+  referencia/  # Material del organizador (lineamientos, plantilla Lean Canvas)
 ```
 
 ## Documentación
