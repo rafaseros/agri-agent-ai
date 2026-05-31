@@ -130,15 +130,13 @@ La capa de monitoreo espacial (NDVI) es **simulada** con cartografía satelital 
 
 ---
 
-## 9. El Equipo
+## 9. El Equipo — **Full_Stack**
 
 | Integrante | Rol |
 | --- | --- |
 | José Rafael Gallegos Rojas | Estrategia, negocio y pitch |
-| *[completar]* | IA / Backend & Google Cloud |
-| *[completar]* | Frontend / UX & demo |
-
-*Sugerencia: atar al menos un rol a credibilidad agronómica (la tesis es precisión agronómica).*
+| Alex Mendizabal Alvarez | IA / Backend & Google Cloud |
+| Jimmy Abramham Flores Jordan | Frontend / UX & demo |
 
 ---
 

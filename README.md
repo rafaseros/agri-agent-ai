@@ -4,7 +4,10 @@
 
 - **Categoría:** Agro
 - **Ubicación:** Santa Cruz de la Sierra, Bolivia
-- **Equipo:** José Rafael Gallegos Rojas (Estrategia/Negocio/Pitch) · *[Integrante 2]* · *[Integrante 3]*
+- **Equipo:** **Full_Stack**
+  - José Rafael Gallegos Rojas — Estrategia, negocio y pitch
+  - Alex Mendizabal Alvarez — IA y arquitectura cloud
+  - Jimmy Abramham Flores Jordan — Frontend y datos
 - 🌐 **Demo en vivo:** https://agriagent-hackathon-2026-6ded8.web.app
 
 ---
