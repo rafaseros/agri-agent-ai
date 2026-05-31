@@ -24,6 +24,8 @@ El productor riega por intuición o por miedo a la sequía. Eso genera dos error
 
 **Resultado:** menos toneladas por hectárea y un recurso hídrico escaso que se desperdicia. El problema no es la falta de agua — es la **falta de precisión** sobre cuándo y cuánto regar.
 
+**Usuario / beneficiario:** el **mediano y gran productor agrícola del Norte Integrado de Santa Cruz** (soya, maíz, sorgo, trigo) y el administrador de hacienda que hoy decide el riego "a ojo". Es quien paga la suscripción y quien gana en rendimiento y ahorro de agua.
+
 ---
 
 ## 2. La Solución — Riego predictivo de alta precisión
