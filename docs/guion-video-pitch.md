@@ -1,42 +1,28 @@
 # Guion del video pitch (≤ 2 min) — AgriAgent · Equipo Full_Stack
 
-> Estructura alineada a los lineamientos oficiales: Problema → Usuario → Solución → Demo →
-> Tecnología → Impacto → Próximos pasos. Enfoque: **agua + producción** (sin diésel).
-> Ritmo objetivo: ~150 palabras/min. Demo en vivo: https://agriagent-hackathon-2026-6ded8.web.app
+> **Un bloque de narración por diapositiva**, alineado a lo que muestra cada slide del deck
+> interactivo. Enfoque: agua + producción (sin diésel). ~150 palabras/min ≈ **1:45–2:00** total.
+> Demo en vivo: https://agriagent-hackathon-2026-6ded8.web.app
 
-| Tiempo | En pantalla | Voz en off |
+| # | Diapositiva (lo que se ve) | Voz en off (lo que se graba) |
 | --- | --- | --- |
-| **0:00–0:15** | Slide de título (pestaña Pitch) | En Santa Cruz, el agua define la cosecha. Pero hoy el productor riega por intuición: si riega de menos, pierde hasta el **40%** del rendimiento en floración; si riega de más, ahoga la raíz y agota el acuífero. **El problema no es la falta de agua: es la falta de precisión.** |
-| **0:15–0:25** | Slide "El Problema" / foto de campo | Nuestro usuario es el **productor del Norte Integrado** —soya, maíz, sorgo, trigo— que hoy decide el riego a ojo. |
-| **0:25–0:40** | Slide "La Solución" | **AgriAgent** es un agente agrícola autónomo: cruza la humedad del suelo con el pronóstico del clima y, con IA generativa, **decide el momento exacto de regar**. No avisa: decide y actúa. |
-| **0:40–1:25** | **DEMO en vivo** (grabación de la app) | Veámoslo funcionando. Creamos un lote de soya y el sistema despliega sus sensores. Iniciamos la **recolección de datos**: a medida que la humedad baja, el agente —con **Gemini 2.5 en Vertex AI**— evalúa cada sensor y decide **REGAR o NO REGAR**, explicando por qué. Y acá lo clave: si un sensor **pierde señal**, el agente **corta la bomba por seguridad**. Nunca riega a ciegas. |
-| **1:25–1:40** | Pestaña "Arquitectura" | Todo corre sobre **Google Cloud**: la app en **Firebase Hosting**, el agente en **Cloud Run con Vertex AI**, y el histórico en **BigQuery**. Somos transparentes: la capa satelital NDVI es una **simulación**; la integración con Earth Engine está en validación. |
-| **1:40–1:55** | Slide "El Mercado" / impacto | El impacto: proteger el 40% del rendimiento equivale a unos **$400 por hectárea**, y reducir el desperdicio ahorra **más de un millón de litros de agua por hectárea al año** en el Norte Integrado. |
-| **1:55–2:05** | Slide final / logo | AgriAgent **ya está en vivo**. Lo próximo: un **piloto de campo** esta campaña. Porque no venimos a apagar bombas: venimos a **detonar el potencial de cada semilla**. Equipo **Full_Stack**. Gracias. |
+| **1** | **Título** — "AgriAgent · Riego Predictivo impulsado por IA" + frase de impacto | AgriAgent: **riego predictivo impulsado por Inteligencia Artificial**. Porque no venimos a apagar bombas de agua — venimos a **detonar el máximo potencial genético de cada semilla**. |
+| **2** | **El Problema** ("El Riego a Ciegas") — Déficit Hídrico · Sobre-riego · El Costo | Hoy se riega **a ciegas**. Si falta agua en floración, el rendimiento cae **hasta un 40%**. Si sobra, se desperdicia **30%** del agua, se ahogan las raíces y se agotan los acuíferos. El costo: menos rentabilidad y un recurso hídrico que se vacía. |
+| **3** | **El Mercado** ("El Norte Integrado") — 1.5M ha · $400/ha · 225 mil millones L | Nuestro mercado es el **Norte Integrado**: más de **1.5 millones de hectáreas** de soya, maíz y sorgo. Para el productor, salvar ese 40% son unos **$400 por hectárea**; y al capturar solo el 10% del mercado, ahorraríamos **225 mil millones de litros de agua al año**. |
+| **4** | **La Solución** ("AgriAgent") — Edge & Hub · Contexto Bioclimático · Cerebro Autónomo | La solución: **sensores IoT** de bajo costo desde una **app mobile-first**; **contexto bioclimático** con Open-Meteo; y un **cerebro autónomo —Gemini 2.5 Flash—** que evalúa el estrés de cada cultivo y ejecuta decisiones con protocolo **fail-safe**. |
+| **5** | **Arquitectura y Transparencia** — diagrama del ciclo en Google Cloud + nota NDVI | Todo corre de extremo a extremo sobre **Google Cloud**: del sensor a **Firebase Hosting**, **Cloud Functions**, el cerebro en **Vertex AI**, y el riego; cada decisión queda en **BigQuery**. Y somos transparentes: la capa NDVI es **simulada**, la integración con Earth Engine está **en validación**. |
+| **6** | **Modelo de Negocios** ("Go-to-Market") — SaaS + comodato + suscripción/ha + escala | El modelo: **SaaS habilitado por hardware**. Barrera de entrada baja —los sensores van en **comodato**—, **ingreso recurrente** por suscripción anual por hectárea, y **escalabilidad** inmediata con costo marginal casi cero en Google Cloud. |
+| **7** | **Demo Time** — "El campo en la palma de la mano" + botón → app en vivo | **Demo time: el campo en la palma de la mano.** *(clic en INICIAR DEMOSTRACIÓN → app)* Creamos un lote, corre la **recolección de datos**, y el agente decide —por cada sensor— **regar o no**. Si uno **pierde señal, corta la bomba por seguridad**. AgriAgent **ya está en vivo**; lo próximo, un **piloto de campo**. Equipo **Full_Stack**. |
 
-> ~240 palabras ≈ 1:45–2:00 con las pausas del demo. Si te pasás, recortá la fila de Arquitectura.
+> **Total ≈ 250 palabras ≈ 1:45.** Deja margen para el clic al demo y las pausas → entra en los 2:00.
+> Si te pasás, recortá la fila 3 (mercado) o la 5 (arquitectura).
 
 ---
 
-## Cómo producirlo rápido (ruta recomendada)
+## Producción (regrabar rápido)
+1. Grabá **un audio por fila** (bloques 1–7) y juntalos en orden — así cada narración cae sobre su slide.
+2. Para el bloque 7, sincronizá con la **grabación de pantalla** del demo real (crear lote → recolección → decisión → fail-safe).
+3. Voz: tuya, o IA (Google Cloud TTS / ElevenLabs). Ensamblá en **CapCut** (subtítulos automáticos), exportá 1080p, **≤ 2:00**.
 
-**La forma más rápida y creíble: grabación de pantalla del demo real + voz en off.**
-
-1. **Calentá Cloud Run** (entrá a la app y hacé un tick de simulación) para que no haya *cold start* en cámara.
-2. **Grabá la pantalla** mientras seguís el guion en la app:
-   - Windows: `Win + G` (Xbox Game Bar) o **OBS Studio** (gratis).
-   - Mac: `Cmd + Shift + 5`.
-   - Alternativa 1-clic: **Loom**.
-3. **La voz** (elegí una):
-   - **A) Tu voz** — más auténtica; el jurado valora a la persona.
-   - **B) IA (TTS)** si no querés grabarte: **Google Cloud Text-to-Speech** (encaja con el hackatón; voces es-US/es-419) o **ElevenLabs** (free tier, muy natural). Pegás el guion → generás el audio.
-4. **Armá el video** en **CapCut** (gratis, fácil): metés la grabación + el audio, agregás un título al inicio y subtítulos automáticos, exportás en **1080p**. (Alternativa pro: DaVinci Resolve.)
-5. **Largo:** recortá a **≤ 2:00** exactos (es tope obligatorio).
-
-### Sobre los avatares de IA (HeyGen, Synthesia, Pictory…)
-Funcionan, pero para un video de **demo** los desaconsejo hoy: requieren cuenta/créditos, se ven genéricos y **mostrar el producto real puntúa más** (y el rubric prohíbe falsear funcionalidades de IA — la honestidad es tu fortaleza). Usá la IA para el guion y la voz, no para fingir un presentador.
-
-### Tips
-- Grabá en **vertical u horizontal** según dónde lo suban; horizontal 1920×1080 es lo seguro.
-- Hacé **2–3 tomas** del demo y quedate con la más limpia.
-- Mostrá el momento **fail-safe** (apagar señal → bomba OFF) — es el clímax.
+## Tip para el demo (bloque 7)
+Para que la IA diga **REGAR**: poné un sensor con **humedad baja (~15%)** y sin lluvia pronosticada. Antes de grabar, **calentá Cloud Run** (un tick) para evitar el arranque en frío.
