@@ -29,6 +29,24 @@ functions.http('helloHttp', async (req, res) => {
         return;
     }
 
+    // Modo histórico: el dashboard de Analítica lee las últimas filas de BigQuery.
+    // (El frontend no puede consultar BigQuery directo; la función corre la query.)
+    if (req.method === 'GET' && req.query && req.query.modo === 'historial') {
+        try {
+            const [rows] = await bigquery.query({
+                query: `SELECT fecha_hora, sensor_id, cultivo, humedad_superficie, humedad_profunda, estado_red, decision_ia
+                        FROM \`agriagent-hackathon-2026.agriagent_data.historial_riego\`
+                        ORDER BY fecha_hora DESC
+                        LIMIT 200`,
+            });
+            res.status(200).json({ historial: rows });
+        } catch (e) {
+            console.error('Error BQ historial:', e.message);
+            res.status(200).json({ historial: [] });
+        }
+        return;
+    }
+
     try {
         // 1. Extracción segura (Soporta si req.body es undefined o string)
         let data = {};

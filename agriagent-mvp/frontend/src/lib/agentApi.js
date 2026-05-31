@@ -70,3 +70,16 @@ export async function postStatus(body, signal) {
   if (!res.ok) throw new Error(`La API respondió ${res.status}`);
   return normalizeStatus(json);
 }
+
+/**
+ * Fetch the recent irrigation history straight from BigQuery, via the backend
+ * `?modo=historial` endpoint. The browser can't query BigQuery directly, so the
+ * Cloud Function runs the query and returns the rows.
+ * @returns {Promise<Array>} rows: { fecha_hora, sensor_id, cultivo, humedad_superficie, humedad_profunda, estado_red, decision_ia }
+ */
+export async function fetchHistorial() {
+  const res = await fetch(`${STATUS_URL}?modo=historial`);
+  if (!res.ok) throw new Error(`Historial respondió ${res.status}`);
+  const json = await res.json().catch(() => ({}));
+  return Array.isArray(json.historial) ? json.historial : [];
+}
